@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: "Ubuntu";
+  }
+}
+
+@layer components {
+  .outline-btn {
+    @apply whitespace-nowrap rounded-md bg-appButtonBlack text-base text-white hover:bg-white hover:text-appButtonBlack focus-visible:outline-none active:bg-appButtonBlack border-white border text-[12px];
+  }
+
+  .contained-btn {
+    @apply whitespace-nowrap rounded-md bg-white text-base text-appButtonBlack hover:bg-appButtonBlack hover:text-white focus-visible:outline-none active:bg-appButtonBlack border-white border text-[12px];
+  }
+}
