@@ -1,8 +1,8 @@
 import React from "react";
-import { users } from "../feed/profileFeed.js";
+import { users } from "../feed/followFeed";
 import User8 from "../assets/user8.jpg";
 import { useFollower, useFollowing } from "../api/follow";
-import { FollowUser } from "../types/follow.js";
+import { FollowUser } from "../types/follow";
 
 interface FollowStatus {
   [status: string]: boolean;
@@ -14,6 +14,7 @@ interface Tab {
 interface StatusText {
   [statusString: string]: string;
 }
+
 const TAB_TYPE: Tab = {
   FOLLOWERS: 0,
   FOLLOWING: 1,
@@ -36,7 +37,7 @@ const Follower = () => {
 
   const [tabIndex, setTabIndex] = React.useState<number>(0);
 
-  const formatUserHtml = (data: FollowUser[]): JSX.Element[] => {
+  const makeFollowHtml = (data: FollowUser[]): JSX.Element[] => {
     return data.map((follower, index) => {
       const { id, isFollowing, name, username } = follower;
 
@@ -121,7 +122,7 @@ const Follower = () => {
     Array.isArray(followerData?.data) &&
     followerData.data.length > 0
   ) {
-    followerUsers = formatUserHtml(followerData.data);
+    followerUsers = makeFollowHtml(followerData.data);
   }
 
   let followingUsers = null;
@@ -130,7 +131,7 @@ const Follower = () => {
     Array.isArray(followingData?.data) &&
     followingData?.data.length > 0
   ) {
-    followingUsers = formatUserHtml(followingData.data);
+    followingUsers = makeFollowHtml(followingData.data);
   }
 
   return (

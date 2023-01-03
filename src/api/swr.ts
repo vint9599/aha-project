@@ -7,5 +7,5 @@ export const fetcher = async (url: Key) => {
     return res;
   }
 
-  throw new Error("fetcher url need to sbe string");
+  throw new Error("fetcher url need to be string");
 };

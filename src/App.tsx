@@ -1,10 +1,11 @@
 import React from "react";
+import { Route, Routes } from "react-router-dom";
+
 import Nav from "./layout/Nav";
 import Container from "./layout/ContentContainer";
 import Home from "./pages/Home";
 import Tags from "./pages/Tag";
-
-import { Route, Routes } from "react-router-dom";
+import Result from "./pages/Result";
 
 interface PageRoute {
   path: string;
@@ -25,6 +26,11 @@ const App = () => {
         path: "/tags",
         displayFollow: false,
         pageContent: Tags,
+      },
+      {
+        path: "/results",
+        displayFollow: false,
+        pageContent: Result,
       },
     ];
   }, []);
