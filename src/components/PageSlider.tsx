@@ -27,7 +27,7 @@ function PageSlider() {
     }
   };
 
-  console.log("markIndex", markIndex);
+  // console.log("markIndex", markIndex);
   const StyledSlider = styled(Slider)<SliderProps>((props) => {
     return {
       "& .MuiSlider-rail": {

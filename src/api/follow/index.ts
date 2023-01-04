@@ -1,12 +1,12 @@
 import useSWR from "swr";
 import { fetcher } from "../swr";
 import { ApiPaginationResult, SwrResult } from "../type";
-import { FollowUser } from "../../types/follow";
+import { User } from "../../types/user";
 
 export const useFollower = (
   page: number = 1,
   pageSize: number = 10
-): SwrResult<ApiPaginationResult<FollowUser[]>> => {
+): SwrResult<ApiPaginationResult<User[]>> => {
   const { data, isLoading, error } = useSWR(
     `/users/all?page=${page}&pageSize=${pageSize}`,
     fetcher
@@ -18,7 +18,7 @@ export const useFollower = (
 export const useFollowing = (
   page: number = 1,
   pageSize: number = 10
-): SwrResult<ApiPaginationResult<FollowUser[]>> => {
+): SwrResult<ApiPaginationResult<User[]>> => {
   const { data, isLoading, error } = useSWR(
     `/users/friends?page=${page}&pageSize=${pageSize}`,
     fetcher

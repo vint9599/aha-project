@@ -1,4 +1,4 @@
-export interface FollowUser {
+export interface User {
   avater: string;
   id: string;
   isFollowing: boolean;

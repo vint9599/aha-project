@@ -2,7 +2,7 @@ import React from "react";
 import { users } from "../feed/followFeed";
 import User8 from "../assets/user8.jpg";
 import { useFollower, useFollowing } from "../api/follow";
-import { FollowUser } from "../types/follow";
+import { User } from "../types/user";
 
 interface FollowStatus {
   [status: string]: boolean;
@@ -37,13 +37,13 @@ const Follower = () => {
 
   const [tabIndex, setTabIndex] = React.useState<number>(0);
 
-  const makeFollowHtml = (data: FollowUser[]): JSX.Element[] => {
+  const makeFollowHtml = (data: User[]): JSX.Element[] => {
     return data.map((follower, index) => {
       const { id, isFollowing, name, username } = follower;
 
       let imgSrc = "";
       // avatar image url isn't available, use static file instead
-      console.log("users.length", users.length, index);
+      // console.log("users.length", users.length, index);
       if (users.length > index) {
         imgSrc = users[index]?.pic ?? "";
       } else {
