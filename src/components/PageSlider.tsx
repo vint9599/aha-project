@@ -16,18 +16,31 @@ const marks: Mark[] = [
   { label: "50", value: 99.5 },
 ];
 
-function PageSlider() {
-  const [markIndex, setMarkIndex] = React.useState<number>(0);
+interface Props {
+  value: string;
+  setValue: (pageSize: string) => void;
+}
 
-  const handleChange = (event: Event, newValue: number | number[]) => {
-    if (!Array.isArray(newValue) && !isNaN(newValue)) {
-      setMarkIndex(newValue);
-    } else {
-      setMarkIndex(0);
+function PageSlider({ value, setValue }: Props) {
+  let innerValue = 0;
+  let mark = marks.find((mark) => {
+    return mark.label === value;
+  });
+  if (mark !== undefined) {
+    innerValue = mark.value;
+  }
+
+  const handleChange = (event: Event, value: number | number[]) => {
+    if (!Array.isArray(value) && !isNaN(value)) {
+      let mark = marks.find((mark) => {
+        return mark.value === value;
+      });
+      if (mark !== undefined) {
+        setValue(mark.label);
+      }
     }
   };
 
-  // console.log("markIndex", markIndex);
   const StyledSlider = styled(Slider)<SliderProps>((props) => {
     return {
       "& .MuiSlider-rail": {
@@ -62,7 +75,7 @@ function PageSlider() {
     <div className="w-full">
       <div className="w-full pl-[1px]">
         <StyledSlider
-          value={markIndex}
+          value={innerValue}
           onChange={handleChange}
           step={null}
           marks={marks}

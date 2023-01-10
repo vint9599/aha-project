@@ -1,12 +1,12 @@
 import React from "react";
-import Input from "../components/Input";
-import PageNumberSlider from "../components/PageSlider";
 import { Link } from "react-router-dom";
+import Input from "../components/Input";
+import PageSizeSlider from "../components/PageSlider";
 
 const Home = () => {
-  const [keyword, setKeyword] = React.useState<string>("");
   const [pageSize, setPageSize] = React.useState<string>("3");
-  console.log("keyword", keyword);
+  const [keyword, setKeyword] = React.useState<string>("");
+
   return (
     <>
       <div className="px-16 ml-[2px] mt-2">
@@ -32,10 +32,10 @@ const Home = () => {
         </div>
 
         <div className="mt-[12px] mb-12">
-          <PageNumberSlider />
+          <PageSizeSlider value={pageSize} setValue={setPageSize} />
         </div>
 
-        <div className="w-full mt-[389px] mb-6">
+        <div className="w-full mt-[389px]">
           <Link to={`/results?page=1&pageSize=${pageSize}&keyword=${keyword}`}>
             <button className="contained-btn w-full max-w-[343px] px-[13px] py-[7px] text-[14px] font-bold">
               SEARCH
