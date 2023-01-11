@@ -16,7 +16,6 @@ const Home = () => {
             placeholder="Keyword"
             value={keyword}
             onChange={(event) => {
-              console.log(event);
               setKeyword(event.target.value);
             }}
           />
@@ -36,7 +35,9 @@ const Home = () => {
         </div>
 
         <div className="w-full mt-[389px]">
-          <Link to={`/results?page=1&pageSize=${pageSize}&keyword=${keyword}`}>
+          <Link
+            to={`/search/result?page=1&pageSize=${pageSize}&keyword=${keyword}`}
+          >
             <button className="contained-btn w-full max-w-[343px] px-[13px] py-[7px] text-[14px] font-bold">
               SEARCH
             </button>

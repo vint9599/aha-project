@@ -5,11 +5,17 @@ import NavIcon from "../assets/NavIcon";
 interface Page {
   label: string;
   path: string;
+  children?: string[];
   displayDot: boolean;
 }
 
 const pages: Page[] = [
-  { label: "Home", path: "/", displayDot: false },
+  {
+    label: "Home",
+    path: "/search",
+    children: ["/search/result"],
+    displayDot: false,
+  },
   { label: "Tags", path: "/tags", displayDot: true },
 ];
 
@@ -18,7 +24,12 @@ const Nav = () => {
   const pathName = location.pathname;
 
   const navLinks = pages.map((page, index) => {
-    let isActive = pathName === page.path;
+    const pathChildren = page.children ?? [];
+    const isMatchSubPage = pathChildren.some((subPath) =>
+      subPath.startsWith(pathName)
+    );
+    let isActive = pathName === page.path || isMatchSubPage;
+
     return (
       <React.Fragment key={index}>
         <Link to={page.path}>
@@ -45,7 +56,7 @@ const Nav = () => {
 
   return (
     <div className="min-w-[80px] max-w-[80px] h-screen p-4 text-white bg-appDarkGrey">
-      <Link to="/">
+      <Link to="/search">
         <div className="px-1 py-2 mt-[11px] text-center text-transparent bg-clip-text bg-gradient-to-r from-appOrange to-appYellow font-bold text-[13px] -tracking-[0.5px] cursor-pointer">
           LOGO
         </div>

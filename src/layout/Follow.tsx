@@ -3,6 +3,7 @@ import { users } from "../feed/followFeed";
 import User8 from "../assets/user8.jpg";
 import { useFollower, useFollowing } from "../api/follow";
 import { User } from "../types/user";
+import { Skeleton } from "@mui/material";
 
 interface FollowStatus {
   [status: string]: boolean;
@@ -116,6 +117,48 @@ const Follower = () => {
     });
   }, [tabIndex]);
 
+  const skeleton = React.useMemo(() => {
+    return Array.from<number>({ length: 12 }).map((item, index) => {
+      return (
+        <div
+          key={`skeleton_${index}`}
+          className="flex justify-between items-center px-4"
+        >
+          <div className="w-full inline-flex items-center my-2 mr-[px]">
+            <Skeleton
+              variant="rounded"
+              sx={{
+                width: "40px",
+                height: "40px",
+                marginRight: "15px",
+                bgcolor: "grey.900",
+              }}
+            />
+            <div className="flex flex-col">
+              <Skeleton
+                variant="text"
+                sx={{
+                  width: "200px",
+                  bgcolor: "grey.900",
+                  fontSize: "1rem",
+                }}
+              />
+
+              <Skeleton
+                variant="text"
+                sx={{
+                  width: "200px",
+                  bgcolor: "grey.900",
+                  fontSize: "1rem",
+                }}
+              />
+            </div>
+          </div>
+        </div>
+      );
+    });
+  }, []);
+
   let followerUsers = null;
   if (
     !isFetchingFollower &&
@@ -134,12 +177,15 @@ const Follower = () => {
     followingUsers = makeFollowHtml(followingData.data);
   }
 
+  const userHtml =
+    tabIndex === TAB_TYPE.FOLLOWERS ? followerUsers : followingUsers;
+
   return (
     <div className="min-w-[375px] max-w-[375px] h-screen bg-appDarkGrey hidden desktop:block">
       <div className="flex pb-6">{ProfileTabs}</div>
 
       <div className="flex flex-col overflow-y-scroll max-h-full -mt-[1.75px]">
-        {tabIndex === TAB_TYPE.FOLLOWERS ? followerUsers : followingUsers}
+        {isFetchingFollower || isFetchingFollowing ? skeleton : userHtml}
       </div>
     </div>
   );

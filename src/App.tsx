@@ -1,8 +1,8 @@
-import { useRoutes, Route, Routes } from "react-router-dom";
+import { useRoutes } from "react-router-dom";
 
 import NavLayout from "./layout/NavLayout";
 import FollowLayout from "./layout/FollowLayout";
-
+import Home from "./pages/Home";
 import Search from "./pages/Search";
 import Result from "./pages/Result";
 import Tags from "./pages/Tag";
@@ -11,6 +11,17 @@ const App = () => {
   const element = useRoutes([
     {
       path: "/",
+      element: <NavLayout />,
+      children: [
+        {
+          index: true,
+          element: <Home />,
+        },
+      ],
+    },
+
+    {
+      path: "/search",
       element: <FollowLayout />,
       children: [
         {
@@ -18,7 +29,7 @@ const App = () => {
           element: <Search />,
         },
         {
-          path: "results",
+          path: "result",
           element: <Result />,
         },
       ],
