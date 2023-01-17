@@ -63,7 +63,7 @@ const Follower = () => {
 
   const handleFollowData = (followObj: ApiPaginationResult<User[]>): void => {
     setTotalPages(followObj.totalPages);
-    setUser(followObj.data);
+    setUser((prev) => prev.concat(followObj.data));
   };
 
   const handleInfiniteScrollData = async () => {
