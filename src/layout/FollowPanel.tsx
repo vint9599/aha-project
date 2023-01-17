@@ -89,15 +89,14 @@ const Follower = () => {
     }, 1000);
   };
 
-  React.useEffect(() => {
-    const handleTabChange = () => {
-      setPage(1);
-      setUser([]);
-      refetch();
-    };
-
-    handleTabChange();
-  }, [tabIndex]);
+  const handleTabChange = (index: number): void => {
+    setTabIndex(index);
+    // reset page to 1 and clear user data state
+    // refetch for using other api to fetch data
+    setPage(1);
+    setUser([]);
+    refetch();
+  };
 
   React.useEffect(() => {
     if (
@@ -188,7 +187,7 @@ const Follower = () => {
                 : "tracking-[.15px]"
             }  ${tabIndex === value ? "text-white" : "text-appTextGrey"}`}
             onClick={() => {
-              setTabIndex(value);
+              handleTabChange(index);
             }}
           >
             <span className=""> {TAP_TYPE_TEXT[value]}</span>
