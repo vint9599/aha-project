@@ -1,28 +1,25 @@
-import useSWR from "swr";
-import { fetcher } from "../swr";
-import { ApiPaginationResult, SwrResult } from "../type";
+import { ApiPaginationResult } from "../type";
 import { User } from "../../types/user";
+import api from "../index";
 
-export const useFollower = (
+export const getFollowerUser = async (
   page: number = 1,
   pageSize: number = 10
-): SwrResult<ApiPaginationResult<User[]>> => {
-  const { data, isLoading, error } = useSWR(
-    `/users/all?page=${page}&pageSize=${pageSize}`,
-    fetcher
+): Promise<ApiPaginationResult<User[]>> => {
+  const { data } = await api.get(
+    `/users/all?page=${page}&pageSize=${pageSize}`
   );
 
-  return { data, isLoading, error };
+  return data;
 };
 
-export const useFollowing = (
+export const getFollowingUser = async (
   page: number = 1,
   pageSize: number = 10
-): SwrResult<ApiPaginationResult<User[]>> => {
-  const { data, isLoading, error } = useSWR(
-    `/users/friends?page=${page}&pageSize=${pageSize}`,
-    fetcher
+): Promise<ApiPaginationResult<User[]>> => {
+  const { data } = await api.get(
+    `/users/friends?page=${page}&pageSize=${pageSize}`
   );
 
-  return { data, isLoading, error };
+  return data;
 };

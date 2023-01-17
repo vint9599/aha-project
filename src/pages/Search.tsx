@@ -9,8 +9,8 @@ const Home = () => {
 
   return (
     <>
-      <div className="px-16 ml-[2px] mt-2">
-        <h1 className="text-[1.5rem] mb-4 ml-[1px] my-1">Search</h1>
+      <div className="ml-[2px] mt-2 px-16">
+        <h1 className="my-1 mb-4 ml-[1px] text-[1.5rem]">Search</h1>
         <div className="mb-[28px] max-w-[725px] pt-[3px]">
           <Input
             placeholder="Keyword"
@@ -20,21 +20,21 @@ const Home = () => {
             }}
           />
         </div>
-        <hr className="border-white border-1 border-opacity-10 mx-0.5" />
+        <hr className="border-1 mx-0.5 border-white border-opacity-10" />
 
-        <h2 className="text-[1.5rem] mt-[31px]"># Of Results Per Page</h2>
-        <div className="mt-[15px] flex items-end h-[50px] max-h-[50px]">
-          <div className="text-[46.25px] -mb-[14px] font-bold tracking-[1.8px]">
+        <h2 className="mt-[31px] text-[1.5rem]"># Of Results Per Page</h2>
+        <div className="mt-[15px] flex h-[50px] max-h-[50px] items-end">
+          <div className="-mb-[14px] text-[46.25px] font-bold tracking-[1.8px]">
             30
           </div>
-          <div className="text-[1rem] ml-[10px]">results</div>
+          <div className="ml-[10px] text-[1rem]">results</div>
         </div>
 
         <div className="mt-[12px] mb-12">
           <PageSizeSlider value={pageSize} setValue={setPageSize} />
         </div>
 
-        <div className="w-full mt-[389px]">
+        <div className="mt-[389px] w-full">
           <Link
             to={`/search/result?page=1&pageSize=${pageSize}&keyword=${keyword}`}
           >

@@ -19,5 +19,3 @@ export const searchUsers = emptySearchUser.map((item, index) => {
     userName: "",
   };
 });
-
-console.log("searchUsers", searchUsers);

@@ -81,13 +81,13 @@ function PageSlider({ value, setValue }: Props) {
           marks={marks}
         />
       </div>
-      <div className="flex justify-between -mt-[30px] w-full relative">
-        <p className="absolute tracking-[0.15px] left-0">3</p>
-        <p className="absolute tracking-[0.15px] left-[18.5%]">6</p>
-        <p className="absolute tracking-[0.15px] left-[36.8%]">9</p>
-        <p className="absolute tracking-[0.15px] left-[55.4%]">12</p>
-        <p className="absolute tracking-[0.15px] left-[73.8%]">15</p>
-        <p className="absolute tracking-[0.15px] left-[97.9%]">50</p>
+      <div className="relative -mt-[30px] flex w-full justify-between">
+        <p className="absolute left-0 tracking-[0.15px]">3</p>
+        <p className="absolute left-[18.5%] tracking-[0.15px]">6</p>
+        <p className="absolute left-[36.8%] tracking-[0.15px]">9</p>
+        <p className="absolute left-[55.4%] tracking-[0.15px]">12</p>
+        <p className="absolute left-[73.8%] tracking-[0.15px]">15</p>
+        <p className="absolute left-[97.9%] tracking-[0.15px]">50</p>
       </div>
     </div>
   );

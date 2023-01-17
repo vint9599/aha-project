@@ -9,7 +9,7 @@ const Input: React.FC<
   <div>
     <input
       {...props}
-      className="border-white border-opacity-50 border-[3px] h-[60px] w-full bg-appBlack pl-[15px] rounded-md focus:border-appBrightOrange outline-none transition-all placeholder:text-white placeholder:text-opacity-30 tracking-[.25px] text-[14px]"
+      className="h-[60px] w-full rounded-md border-[3px] border-white border-opacity-50 bg-appBlack pl-[15px] text-[14px] tracking-[.25px] outline-none transition-all placeholder:text-white placeholder:text-opacity-30 focus:border-appBrightOrange"
     />
   </div>
 );

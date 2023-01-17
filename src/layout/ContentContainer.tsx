@@ -5,7 +5,7 @@ interface Props {
 const Container = ({ children }: Props) => {
   return (
     <>
-      <div className="bg-appBlack w-[100%] h-screen text-white px-16 pt-12 overflow-y-scroll">
+      <div className="h-screen w-[100%] overflow-y-scroll bg-appBlack px-16 pt-12 text-white">
         {children}
       </div>
     </>

@@ -33,20 +33,20 @@ const Nav = () => {
     return (
       <React.Fragment key={index}>
         <Link to={page.path}>
-          <div className="flex flex-col items-center text-[12px] mt-6 mb-[1px]">
+          <div className="mt-6 mb-[1px] flex flex-col items-center text-[12px]">
             {isActive ? (
               <NavIcon fill="#FFF" />
             ) : (
               <div className="relative">
                 {page.displayDot ? (
-                  <div className="absolute -right-[7px] -top-[7px] h-[9px] w-[9px] rounded-full bg-appSkyBlue border border-appDarkGrey" />
+                  <div className="absolute -right-[7px] -top-[7px] h-[9px] w-[9px] rounded-full border border-appDarkGrey bg-appSkyBlue" />
                 ) : null}
 
                 <NavIcon fill="#8A8A8F" />
               </div>
             )}
           </div>
-          <div className="mt-[1px] -mb-[2px] tracking-[0.3px] h-[20px] text-[12px] text-center">
+          <div className="mt-[1px] -mb-[2px] h-[20px] text-center text-[12px] tracking-[0.3px]">
             {isActive ? page.label : ""}
           </div>
         </Link>
@@ -55,9 +55,9 @@ const Nav = () => {
   });
 
   return (
-    <div className="min-w-[80px] max-w-[80px] h-screen p-4 text-white bg-appDarkGrey">
+    <div className="h-screen min-w-[80px] max-w-[80px] bg-appDarkGrey p-4 text-white">
       <Link to="/search">
-        <div className="px-1 py-2 mt-[11px] text-center text-transparent bg-clip-text bg-gradient-to-r from-appOrange to-appYellow font-bold text-[13px] -tracking-[0.5px] cursor-pointer">
+        <div className="mt-[11px] cursor-pointer bg-gradient-to-r from-appOrange to-appYellow bg-clip-text px-1 py-2 text-center text-[13px] font-bold -tracking-[0.5px] text-transparent">
           LOGO
         </div>
       </Link>

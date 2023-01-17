@@ -1,10 +1,8 @@
-import useSWR from "swr";
-import { fetcher } from "../swr";
-import { SwrResult } from "../type";
 import { Tag } from "../../types/tag";
+import api from "../index";
 
-export const useTag = (): SwrResult<Tag[]> => {
-  const { data, isLoading, error } = useSWR(`/tags`, fetcher);
+export const getTags = async (): Promise<Tag[]> => {
+  const { data } = await api.get(`/tags`);
 
-  return { data, isLoading, error };
+  return data;
 };
