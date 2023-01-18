@@ -42,8 +42,7 @@ const Search = () => {
 
   const handleAppendData = () => {
     setSearchResult((prev) => {
-      const newData = [...prev.slice(0, 3)];
-      console.log("newData", newData);
+      const newData = [...prev.slice(0, Number(queryPageSize))];
       return [...prev, ...newData];
     });
   };

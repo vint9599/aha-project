@@ -37,91 +37,91 @@ const FOLLOW_STATUS: FollowStatus = {
 
 const Follower = () => {
   const [user, setUser] = React.useState<User[]>([]);
-
-  const [tabIndex, setTabIndex] = React.useState<number>(0);
-  const [page, setPage] = React.useState<number>(1);
-  const [pageSize] = React.useState<number>(20);
-  const [hasMore, setHasMore] = React.useState<boolean>(false);
-  const [firstFetchData, setFirstFetchData] = React.useState<boolean>(true);
-  const [isFetching, setIsFetching] = React.useState<boolean>(false);
+  const [isInfiniteFetching, setIsInfiniteFetching] =
+    React.useState<boolean>(false);
 
   let lastUser = React.useRef();
   const { isVisible: isVisibleLastUser, handleObserveRef } = useInfiniteScroll(
     lastUser,
-    isFetching
+    isInfiniteFetching
   );
 
-  async function fetchData(
-    tabIndex: number,
-    way: "reset" | "append" = "reset",
-    onSuccess?: () => void
-  ) {
-    const fetchApi =
-      tabIndex === TAB_TYPE.FOLLOWERS ? getFollowerUser : getFollowingUser;
+  const [tabIndex, setTabIndex] = React.useState<number>(0);
+  const [page, setPage] = React.useState<number>(1);
+  const [pageSize] = React.useState<number>(20);
+  const [hasMore, setHasMore] = React.useState<boolean>(true);
 
-    const response = await fetchApi(page, pageSize);
+  const fetchApi =
+    tabIndex === TAB_TYPE.FOLLOWERS ? getFollowerUser : getFollowingUser;
 
-    if (response !== undefined) {
-      const { data: user, page, totalPages } = response;
-      setHasMore(totalPages > page);
+  const {
+    result: firstFollowData,
+    isFetching: isFirstFetching,
+    refetch,
+  } = useApi(() => fetchApi(page, pageSize));
 
-      if (Array.isArray(user) && user.length > 0) {
-        setUser((prev) => {
-          if (way === "reset") {
-            return user;
-          } else {
-            return prev.concat(user);
-          }
-        });
-      }
-
-      onSuccess && onSuccess();
-    }
-    setIsFetching(false);
-  }
-
-  const appendFakeData = () => {
-    if (Array.isArray(user) && user.length > 0) {
-      const partialUser = user.slice(0, pageSize);
-
-      setUser((prev) => prev.concat(...partialUser));
-      setTimeout(() => {
-        setIsFetching(false);
-      }, 500);
+  const handleMakeData = () => {
+    if (
+      firstFollowData !== undefined &&
+      Array.isArray(firstFollowData.data) &&
+      firstFollowData.data.length > 0
+    ) {
+      setUser((prev) => prev.concat(...firstFollowData.data));
     }
   };
+  const handleFollowData = (followObj: ApiPaginationResult<User[]>): void => {
+    // if (hasMore) {
+    //   setHasMore(followObj.totalPages > page);
 
-  const handleTabChange = (tabIndex: number): void => {
-    setUser([]);
-    setPage(1);
-    setFirstFetchData(true);
+    setUser((prev) => prev.concat(followObj.data));
+    // } else {
+    //   handleMakeData();
+    // }
+  };
 
-    setIsFetching(true);
-    if (hasMore) {
-      fetchData(tabIndex, "reset", () => setFirstFetchData(false));
-    } else {
-      appendFakeData();
+  const handleInfiniteScrollData = async () => {
+    setIsInfiniteFetching(true);
+
+    // if (hasMore) {
+    const followData = await getFollowerUser(page, pageSize);
+    if (followData !== undefined) {
+      setHasMore(followData.totalPages > page);
+      handleFollowData(followData);
     }
+    // } else {
+    //   handleMakeData();
+    // }
+    setTimeout(() => {
+      setIsInfiniteFetching(false);
+    }, 1000);
+  };
+
+  const handleTabChange = (index: number): void => {
+    // reset page to 1 and clear user data state
+    // refetch for using other api to fetch data
+    setUser([]);
+    refetch();
   };
 
   React.useEffect(() => {
-    if (firstFetchData && !isFetching) {
-      setIsFetching(true);
-      fetchData(tabIndex, "reset", () => setFirstFetchData(false));
+    if (
+      !isFirstFetching &&
+      firstFollowData !== undefined &&
+      Array.isArray(firstFollowData.data) &&
+      firstFollowData.data.length > 0
+    ) {
+      handleFollowData(firstFollowData);
     }
-  }, [firstFetchData, isFetching]);
+  }, [isFirstFetching, firstFollowData]);
 
   React.useEffect(() => {
     if (isVisibleLastUser) {
       const nextPage = page + 1;
 
-      setIsFetching(true);
       if (hasMore) {
         setPage(nextPage);
-        fetchData(tabIndex, "append", () => setIsFetching(false));
-      } else {
-        appendFakeData();
       }
+      handleInfiniteScrollData();
     }
   }, [isVisibleLastUser]);
 
@@ -270,8 +270,8 @@ const Follower = () => {
       flex-col
       overflow-y-scroll"
       >
-        {firstFetchData ? skeleton : userList}
-        {isFetching ? skeleton : null}
+        {isFirstFetching ? skeleton : userList}
+        {isInfiniteFetching ? skeleton : null}
       </div>
     </div>
   );
